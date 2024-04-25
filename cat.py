@@ -12,14 +12,13 @@ def schrodingers_cat_game():
     time_limit = 30  # 30 seconds
     start_time = time.time()
     
-    cat_states = ["alive", "dead"]
     num_cats = random.randint(2, 4)  # Randomly choose between 2 to 4 cats
-    actual_cat_states = [random.choice(cat_states) for _ in range(num_cats)]
+    actual_cat_states = [random.randint(0, 1) for _ in range(num_cats)]  # 0 for dead, 1 for alive
     
     # Display the number of cats
     print("There are", num_cats, "cats in the box.")
     
-    guess = input("Do you think all the cats are alive or dead? ").lower()
+    guess = input("Enter your guess (1 for alive, 0 for dead, e.g., 101 for three cats): ")
     
     # Check if time is up
     elapsed_time = time.time() - start_time
@@ -28,14 +27,19 @@ def schrodingers_cat_game():
         print("The actual states of the cats were:", actual_cat_states)
         return
     
+    # Check if the guess is valid
+    if len(guess) != num_cats or not guess.isdigit():
+        print("Invalid input. Please enter a sequence of 0s and 1s with the same length as the number of cats.")
+        return
+    
+    # Convert the guess to a list of integers
+    guess_list = [int(digit) for digit in guess]
+    
     # Check if the guess is correct
-    if guess == "alive" or guess == "dead":
-        if all(cat_state == guess for cat_state in actual_cat_states):
-            print("Congratulations! You guessed correctly. All the cats are indeed", guess + ".")
-        else:
-            print("Sorry, you guessed wrong. The actual states of the cats were:", actual_cat_states)
+    if guess_list == actual_cat_states:
+        print("Congratulations! You guessed correctly. All the cats are indeed in the states:", actual_cat_states)
     else:
-        print("Invalid input. Please enter 'alive' or 'dead'.")
+        print("Sorry, you guessed wrong. The actual states of the cats were:", actual_cat_states)
 
     play_again = input("Do you want to play again? (yes/no) ").lower()
     if play_again == "yes":

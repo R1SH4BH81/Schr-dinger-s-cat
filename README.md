@@ -19,7 +19,7 @@ In this game, players are presented with a sealed box containing a cat. The cat'
 - Players can choose to play multiple rounds of the game.
 
 ## Requirements
-- Python 3.x
+- Python 3.x+
 
 ## Usage
 1. Clone or download the repository.
